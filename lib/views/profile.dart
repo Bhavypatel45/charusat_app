@@ -9,17 +9,36 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:loginpage_123/cards_design.dart';
 
 class home extends StatefulWidget {
+
+  String std_id;
+  home({required this.std_id});
+
   @override
   _homeState createState() => _homeState();
+
 }
 
 class _homeState extends State<home> with SingleTickerProviderStateMixin {
   bool data_loaded = false;
 
   final List<feedbackmodel> feedbacks = [];
+  int index = 0;
+
+
   getFeedbackFromSheet() async {
     feedbacks.addAll(await API().allProducts());
+
+    print("---------");
     print(feedbacks[0].First_Name);
+
+    for(int i=0; i<feedbacks.length; i++){
+      if(widget.std_id.toString().toUpperCase() == feedbacks[i].ID_No.toUpperCase()){
+        index = i;
+        break;
+      }
+    }
+
+
     setState(() {
       data_loaded = true;
     });
@@ -34,17 +53,18 @@ class _homeState extends State<home> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //theme: ThemeData.dark(),
       appBar: AppBar(
         title: Center(child: Text("Your Profile")),
       ),
-     body: data_loaded
-          ? info(feedbacks: feedbacks)
+      body: data_loaded
+          ? info(feedbacks: feedbacks[index])
           : SpinKitSquareCircle(
-              color: Colors.blue,
-              size: 50.0,
-              controller: AnimationController(
-                  vsync: this, duration: const Duration(milliseconds: 1200)),
-            ),
+        color: Colors.blue,
+        size: 50.0,
+        controller: AnimationController(
+            vsync: this, duration: const Duration(milliseconds: 1200)),
+      ),
     );
   }
 }
@@ -55,50 +75,59 @@ class info extends StatefulWidget {
     required this.feedbacks,
   }) : super(key: key);
 
-  final List<feedbackmodel> feedbacks;
+  final feedbackmodel feedbacks;
 
   @override
   State<info> createState() => _infoState();
 }
 
+// int SearchSrNo(String roll_num)
+// {
+//
+//   return feedbacks.indexOf(roll_num);
+// }
+
 class _infoState extends State<info> {
+
   @override
   Widget build(BuildContext context) {
     return FeedbackTile(
-      Sr_no: widget.feedbacks[1].Sr_no,
-      ID_No: widget.feedbacks[1].ID_No,
-      First_Name: widget.feedbacks[1].First_Name,
-      Middle_Name: widget.feedbacks[1].Middle_Name,
-      Last_Name: widget.feedbacks[1].Last_Name,
-      Name: widget.feedbacks[1].Name,
-      Career_path: widget.feedbacks[1].Career_path,
-      Gender: widget.feedbacks[1].Gender,
-      Birth_of_date: widget.feedbacks[1].Birth_of_date,
-      SSC: widget.feedbacks[1].SSC,
-      SSC_Board: widget.feedbacks[1].SSC_Board,
-      HSC: widget.feedbacks[1].HSC,
-      HSC_Board: widget.feedbacks[1].HSC_Board,
-      Diploma: widget.feedbacks[1].Diploma,
-      Sem_1_SGPA: widget.feedbacks[1].Sem_1_SGPA,
-      Sem_2_SGPA: widget.feedbacks[1].Sem_2_SGPA,
-      Sem_3_SGPA: widget.feedbacks[1].Sem_3_SGPA,
-      Sem_4_SGPA: widget.feedbacks[1].Sem_4_SGPA,
-      Sem_5_SGPA: widget.feedbacks[1].Sem_5_SGPA,
-      Sem_6_SGPA: widget.feedbacks[1].Sem_6_SGPA,
-      CGPA: widget.feedbacks[1].CGPA,
-      Permanent_address: widget.feedbacks[1].Permanent_address,
-      Permanent_city: widget.feedbacks[1].Permanent_city,
-      PIN: widget.feedbacks[1].PIN,
-      Field_Of_Interest: widget.feedbacks[1].Field_Of_Interest,
-      Project_Details: widget.feedbacks[1].Project_Details,
-      Competitive_exam: widget.feedbacks[1].Competitive_exam,
-      Achievements: widget.feedbacks[1].Achievements,
-      Miscellaneous: widget.feedbacks[1].Miscellaneous,
-      LinkedIn_Profile_link: widget.feedbacks[1].LinkedIn_Profile_link,
-      Github_link: widget.feedbacks[1].Github_link,
+
+
+      Sr_no: widget.feedbacks.Sr_no,
+      ID_No: widget.feedbacks.ID_No,
+      First_Name: widget.feedbacks.First_Name,
+      Middle_Name: widget.feedbacks.Middle_Name,
+      Last_Name: widget.feedbacks.Last_Name,
+      Name: widget.feedbacks.Name,
+      Career_path: widget.feedbacks.Career_path,
+      Gender: widget.feedbacks.Gender,
+      Birth_of_date: widget.feedbacks.Birth_of_date,
+      SSC: widget.feedbacks.SSC,
+      SSC_Board: widget.feedbacks.SSC_Board,
+      HSC: widget.feedbacks.HSC,
+      HSC_Board: widget.feedbacks.HSC_Board,
+      Diploma: widget.feedbacks.Diploma,
+      Sem_1_SGPA: widget.feedbacks.Sem_1_SGPA,
+      Sem_2_SGPA: widget.feedbacks.Sem_2_SGPA,
+      Sem_3_SGPA: widget.feedbacks.Sem_3_SGPA,
+      Sem_4_SGPA: widget.feedbacks.Sem_4_SGPA,
+      Sem_5_SGPA: widget.feedbacks.Sem_5_SGPA,
+      Sem_6_SGPA: widget.feedbacks.Sem_6_SGPA,
+      CGPA: widget.feedbacks.CGPA,
+      Permanent_address: widget.feedbacks.Permanent_address,
+      Permanent_city: widget.feedbacks.Permanent_city,
+      PIN: widget.feedbacks.PIN,
+      Field_Of_Interest: widget.feedbacks.Field_Of_Interest,
+      Project_Details: widget.feedbacks.Project_Details,
+      Competitive_exam: widget.feedbacks.Competitive_exam,
+      Achievements: widget.feedbacks.Achievements,
+      Miscellaneous: widget.feedbacks.Miscellaneous,
+      LinkedIn_Profile_link: widget.feedbacks.LinkedIn_Profile_link,
+      Github_link: widget.feedbacks.Github_link,
       HackerRank_CodeChef_LeetCode_score:
-          widget.feedbacks[1].HackerRank_CodeChef_LeetCode_score,
-      Remarks: widget.feedbacks[1].Remarks,
+      widget.feedbacks.HackerRank_CodeChef_LeetCode_score,
+      Remarks: widget.feedbacks.Remarks,
     );
   }
 }
@@ -140,50 +169,50 @@ class FeedbackTile extends StatelessWidget {
 
   FeedbackTile(
       {required this.Sr_no,
-      required this.ID_No,
-      required this.First_Name,
-      required this.Middle_Name,
-      required this.Last_Name,
-      required this.Name,
-      required this.Career_path,
-      required this.Gender,
-      required this.Birth_of_date,
-      required this.SSC,
-      required this.SSC_Board,
-      required this.HSC,
-      required this.HSC_Board,
-      required this.Diploma,
-      required this.Sem_1_SGPA,
-      required this.Sem_2_SGPA,
-      required this.Sem_3_SGPA,
-      required this.Sem_4_SGPA,
-      required this.Sem_5_SGPA,
-      required this.Sem_6_SGPA,
-      required this.CGPA,
-      required this.Permanent_address,
-      required this.Permanent_city,
-      required this.PIN,
-      required this.Field_Of_Interest,
-      required this.Project_Details,
-      required this.Competitive_exam,
-      required this.Achievements,
-      required this.Miscellaneous,
-      required this.LinkedIn_Profile_link,
-      required this.Github_link,
-      required this.HackerRank_CodeChef_LeetCode_score,
-      required this.Remarks});
+        required this.ID_No,
+        required this.First_Name,
+        required this.Middle_Name,
+        required this.Last_Name,
+        required this.Name,
+        required this.Career_path,
+        required this.Gender,
+        required this.Birth_of_date,
+        required this.SSC,
+        required this.SSC_Board,
+        required this.HSC,
+        required this.HSC_Board,
+        required this.Diploma,
+        required this.Sem_1_SGPA,
+        required this.Sem_2_SGPA,
+        required this.Sem_3_SGPA,
+        required this.Sem_4_SGPA,
+        required this.Sem_5_SGPA,
+        required this.Sem_6_SGPA,
+        required this.CGPA,
+        required this.Permanent_address,
+        required this.Permanent_city,
+        required this.PIN,
+        required this.Field_Of_Interest,
+        required this.Project_Details,
+        required this.Competitive_exam,
+        required this.Achievements,
+        required this.Miscellaneous,
+        required this.LinkedIn_Profile_link,
+        required this.Github_link,
+        required this.HackerRank_CodeChef_LeetCode_score,
+        required this.Remarks});
   Expanded cards(String value) {
     return Expanded(
       child: Card(
           shadowColor: Colors.black,
           elevation: 2,
-          color: Colors.white,
+          color: Colors.black12,
           margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
           child: ListTile(
             title: Text(
               (value),
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontSize: 17.0,
               ),
             ),
@@ -206,24 +235,24 @@ class FeedbackTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        Texts("Sr No:"),
-        cards(Sr_no),
+        // Texts("Sr No:"),
+        // cards(Sr_no),
         //Texts("ID Number:"),
         //cards(ID_No),
-        Texts("First Name:"),
-        cards(First_Name),
-        Texts("Middle Name:"),
-        cards(Middle_Name),
-        Texts("Last Name:"),
-        cards(Last_Name),
-        Texts("Name"),
+        // Texts("First Name:"),
+        // cards(First_Name),
+        // Texts("Middle Name:"),
+        // cards(Middle_Name),
+        // Texts("Last Name:"),
+        // cards(Last_Name),
+         Texts("Name"),
         cards(Name),
-        Texts("Career path"),
-        cards(Career_path),
-        Texts("Gender:"),
-        cards(Gender),
         Texts("Birth of date"),
         cards(Birth_of_date),
+        Texts("Gender:"),
+        cards(Gender),
+        Texts("Career path"),
+        cards(Career_path),
         // Texts("SSC %"),
         // cards(SSC),
         // Texts("SSC Board"),

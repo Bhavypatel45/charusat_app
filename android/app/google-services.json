@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "845398358626",
+    "project_id": "placement-data-2a881",
+    "storage_bucket": "placement-data-2a881.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845398358626:android:d9c6725fcad8d612806f3b",
+        "android_client_info": {
+          "package_name": "com.example.loginpage_123"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845398358626-56lptoiqfocd3bdgs86dancgqqnigp1f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBFdiBYsZBMOFxO2tUeEPCCxlTh9cBF8A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "845398358626-56lptoiqfocd3bdgs86dancgqqnigp1f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

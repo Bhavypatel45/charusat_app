@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loginpage_123/palatte.dart';
 class PasswordInput extends StatelessWidget {
+
   const PasswordInput({
     Key? key,
     required this.icon,
@@ -22,6 +23,8 @@ class PasswordInput extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
         ),
         child: const TextField(
+          obscureText: true,
+          obscuringCharacter: "*",
           decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(vertical: 20),
             border: InputBorder.none,
@@ -36,7 +39,6 @@ class PasswordInput extends StatelessWidget {
             ),
             hintStyle: kBodyText,
           ),
-          obscureText: true,
           style: kBodyText,
           textInputAction: TextInputAction.done,
         ),

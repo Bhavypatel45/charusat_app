@@ -31,9 +31,11 @@ dependencies:
     sdk: flutter
   http: ^0.13.4
   flutter_spinkit: ^5.1.0
+  syncfusion_flutter_charts: ^19.1.54
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  pie_chart: ^5.1.0
 
   font_awesome: ^5.10.1
   google_fonts: ^2.2.0
@@ -41,6 +43,12 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  firebase_auth: ^3.3.7       #THIS IS FOR LOGIN AUTHENTICATION
+  firebase_core: ^1.12.0
+  cloud_firestore: ^3.1.8     #THIS IS FOR SAVING DATAS OF USERS
+  image_picker: ^0.8.4+9      #THIS IS FOR IMAGE PICKER
+  firebase_storage: ^10.2.8   #THIS HELP TO UPLOAD ...
+  uuid: ^3.0.6                #THIS GENERATE RANDOM STRING (HERE FOR GENERATING IMAGE NAME RANDOM )
   syncfusion_flutter_charts: ^19.4.53
 
 
@@ -65,10 +73,10 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/clogo.jpg
-    - assets/images/images.png
-    - assets/images/result.png
-    - assets/images/link.png
-    - assets/images/score.png
+    - assets/images/result1.png
+    - assets/images/link1.png
+    - assets/images/score1.png
+    - assets/images/images2.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

@@ -3,12 +3,13 @@ import 'package:loginpage_123/API/api.dart';
 import 'package:loginpage_123/ModelClass/feedback_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert' as convert;
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:loginpage_123/cards_design.dart';
 
 class home2 extends StatefulWidget {
+
+
+  String std_id;
+  home2({required this.std_id});
+
   @override
   _homeState createState() => _homeState();
 }
@@ -20,9 +21,21 @@ class _homeState extends State<home2> with SingleTickerProviderStateMixin {
   bool data_loaded = false;
 
   final List<feedbackmodel> feedbacks = [];
+  int index = 0;
+
+
   getFeedbackFromSheet() async {
     feedbacks.addAll(await API().allProducts());
     print(feedbacks[0].First_Name);
+
+    for(int i=0; i<feedbacks.length; i++){
+      if(widget.std_id.toString().toUpperCase() == feedbacks[i].ID_No.toUpperCase()){
+        index = i;
+        break;
+      }
+    }
+
+
     setState(() {
       data_loaded = true;
     });
@@ -41,7 +54,7 @@ class _homeState extends State<home2> with SingleTickerProviderStateMixin {
         title: Center(child: Text("Links")),
       ),
       body: data_loaded
-          ? info(feedbacks: feedbacks)
+          ? info(feedbacks: feedbacks[index])
           : SpinKitSquareCircle(
         color: Colors.blue,
         size: 50.0,
@@ -58,7 +71,7 @@ class info extends StatefulWidget {
     required this.feedbacks,
   }) : super(key: key);
 
-  final List<feedbackmodel> feedbacks;
+  final feedbackmodel feedbacks;
 
   @override
   State<info> createState() => _infoState();
@@ -68,40 +81,40 @@ class _infoState extends State<info> {
   @override
   Widget build(BuildContext context) {
     return FeedbackTile(
-      Sr_no: widget.feedbacks[1].Sr_no,
-      ID_No: widget.feedbacks[1].ID_No,
-      First_Name: widget.feedbacks[1].First_Name,
-      Middle_Name: widget.feedbacks[1].Middle_Name,
-      Last_Name: widget.feedbacks[1].Last_Name,
-      Name: widget.feedbacks[1].Name,
-      Career_path: widget.feedbacks[1].Career_path,
-      Gender: widget.feedbacks[1].Gender,
-      Birth_of_date: widget.feedbacks[1].Birth_of_date,
-      SSC: widget.feedbacks[1].SSC,
-      SSC_Board: widget.feedbacks[1].SSC_Board,
-      HSC: widget.feedbacks[1].HSC,
-      HSC_Board: widget.feedbacks[1].HSC_Board,
-      Diploma: widget.feedbacks[1].Diploma,
-      Sem_1_SGPA: widget.feedbacks[1].Sem_1_SGPA,
-      Sem_2_SGPA: widget.feedbacks[1].Sem_2_SGPA,
-      Sem_3_SGPA: widget.feedbacks[1].Sem_3_SGPA,
-      Sem_4_SGPA: widget.feedbacks[1].Sem_4_SGPA,
-      Sem_5_SGPA: widget.feedbacks[1].Sem_5_SGPA,
-      Sem_6_SGPA: widget.feedbacks[1].Sem_6_SGPA,
-      CGPA: widget.feedbacks[1].CGPA,
-      Permanent_address: widget.feedbacks[1].Permanent_address,
-      Permanent_city: widget.feedbacks[1].Permanent_city,
-      PIN: widget.feedbacks[1].PIN,
-      Field_Of_Interest: widget.feedbacks[1].Field_Of_Interest,
-      Project_Details: widget.feedbacks[1].Project_Details,
-      Competitive_exam: widget.feedbacks[1].Competitive_exam,
-      Achievements: widget.feedbacks[1].Achievements,
-      Miscellaneous: widget.feedbacks[1].Miscellaneous,
-      LinkedIn_Profile_link: widget.feedbacks[1].LinkedIn_Profile_link,
-      Github_link: widget.feedbacks[1].Github_link,
+      Sr_no: widget.feedbacks.Sr_no,
+      ID_No: widget.feedbacks.ID_No,
+      First_Name: widget.feedbacks.First_Name,
+      Middle_Name: widget.feedbacks.Middle_Name,
+      Last_Name: widget.feedbacks.Last_Name,
+      Name: widget.feedbacks.Name,
+      Career_path: widget.feedbacks.Career_path,
+      Gender: widget.feedbacks.Gender,
+      Birth_of_date: widget.feedbacks.Birth_of_date,
+      SSC: widget.feedbacks.SSC,
+      SSC_Board: widget.feedbacks.SSC_Board,
+      HSC: widget.feedbacks.HSC,
+      HSC_Board: widget.feedbacks.HSC_Board,
+      Diploma: widget.feedbacks.Diploma,
+      Sem_1_SGPA: widget.feedbacks.Sem_1_SGPA,
+      Sem_2_SGPA: widget.feedbacks.Sem_2_SGPA,
+      Sem_3_SGPA: widget.feedbacks.Sem_3_SGPA,
+      Sem_4_SGPA: widget.feedbacks.Sem_4_SGPA,
+      Sem_5_SGPA: widget.feedbacks.Sem_5_SGPA,
+      Sem_6_SGPA: widget.feedbacks.Sem_6_SGPA,
+      CGPA: widget.feedbacks.CGPA,
+      Permanent_address: widget.feedbacks.Permanent_address,
+      Permanent_city: widget.feedbacks.Permanent_city,
+      PIN: widget.feedbacks.PIN,
+      Field_Of_Interest: widget.feedbacks.Field_Of_Interest,
+      Project_Details: widget.feedbacks.Project_Details,
+      Competitive_exam: widget.feedbacks.Competitive_exam,
+      Achievements: widget.feedbacks.Achievements,
+      Miscellaneous: widget.feedbacks.Miscellaneous,
+      LinkedIn_Profile_link: widget.feedbacks.LinkedIn_Profile_link,
+      Github_link: widget.feedbacks.Github_link,
       HackerRank_CodeChef_LeetCode_score:
-      widget.feedbacks[1].HackerRank_CodeChef_LeetCode_score,
-      Remarks: widget.feedbacks[1].Remarks,
+      widget.feedbacks.HackerRank_CodeChef_LeetCode_score,
+      Remarks: widget.feedbacks.Remarks,
     );
   }
 }
@@ -180,13 +193,13 @@ class FeedbackTile extends StatelessWidget {
       child: Card(
           shadowColor: Colors.black,
           elevation: 2,
-          color: Colors.white,
+          color: Colors.black12,
           margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
           child: ListTile(
             title: Text(
               (value),
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontSize: 17.0,
               ),
             ),
